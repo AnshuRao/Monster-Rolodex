@@ -4,7 +4,7 @@ import { CardList } from "./components/card-list/card-list-components";
 import "./App.css";
 import { SearchBox } from "./components/search-box/search-box.component";
 
-import { Test } from "./components/test-apps/Test.component";
+
 
 class App extends Component {
   constructor() {
@@ -12,7 +12,6 @@ class App extends Component {
     this.state = {
       monsters: [],
       searchField: "",
-      test: "hi anshu",
     };
   }
 
@@ -20,16 +19,10 @@ class App extends Component {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((res) => res.json())
       .then((user) => this.setState({ monsters: user }));
-
-    console.log("hellooooo");
   }
 
   render() {
-    //console.log(this.state);
     const { monsters, searchField } = this.state;
-
-    console.log("pajji");
-    // console.log(searchField);
 
     const filteredMonsters = monsters.filter((monst) =>
       monst.name.toLowerCase().includes(searchField.toLowerCase())
@@ -37,20 +30,17 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>{this.state.test}</h1>
+       <h1 className='app-title'>Monsters Rolodex</h1>
         <SearchBox
           placeholder={"search monsters"}
           searchHandler={(e) => {
             this.setState({ searchField: e.target.value }, () =>
               console.log(this.state)
             );
-            console.log('after on set change')
+          
           }}
         />
-
         <CardList monsters={filteredMonsters}></CardList>
-
-        <Test />
       </div>
     );
   }
